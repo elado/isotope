@@ -1,0 +1,11 @@
+<h2><%=item.title%></h2>
+
+<div class="content">
+<%=item.content%>
+</div>
+
+<ul class="tags">
+	<%item.tags.forEach(function (tag) {%>
+	<li><%=tag.name%></li>
+	<%});%>
+</ul>
