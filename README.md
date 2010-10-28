@@ -4,7 +4,7 @@
 
 Ajax based site developers sometimes struggle with content rendering and role division between server and client.
 
-## Common approaches, pros and cons:
+## Common Approaches, Pros & Cons:
 
 A few approaches to output a rendered template evaluated with an object are:
 

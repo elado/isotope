@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.rdoc_options = ['--main', 'README.rdoc', '--charset=UTF-8']
   gem.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
   
-  gem.files = Dir['{lib,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
+  gem.files = Dir['{lib,test}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
   
   gem.add_development_dependency 'json'
   gem.add_development_dependency 'johnson'
