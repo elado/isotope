@@ -1,4 +1,4 @@
-module RubyHybridTemplates
+module Isotope
   module VERSION
     MAJOR = 1
     MINOR = 0

@@ -137,27 +137,35 @@ This code reads the source of the EJS file, uses Johnson and John Resig's techni
 
 ### Installation:
 
+	gem install isotope
+
+Or
+	# Rails 3.x
+	ruby script/rails plugin install git@github.com:elado/isotope.git
+	
+	# Rails 2.3.x
+	ruby script/plugin install git@github.com:elado/isotope.git
+
+
 #### Rails
 
 ##### Rails 3.x
-
-	ruby script/rails plugin install git@github.com:elado/isotope.git
 
 Add to your Gemfile
 
 	gem 'json'
 	gem 'johnson'
+	gem 'isotope'
 
 and run `bundle install`
 
 ##### Rails 2.3.x
 
-	ruby script/plugin install git@github.com:elado/isotope.git
-
 Add to config/environment.rb
 
 	config.gem 'json'
 	config.gem 'johnson'
+	config.gem 'isotope'
 
 and run `rake gems:install`
 
