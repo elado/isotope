@@ -73,7 +73,11 @@ Ask the server for a JSON article and evaluate the template with this object int
 * SEO and accessibility - HTML code isn't in the source of the page but being rendered after load
 
 
+### So...
+
 In these two approaches, the developer needs to choose according to the task and the project requirements, or, worse, maintaining two templates, ERB and EJS.
+
+Each approach is written in a totally different way, and switching between the approaches means a lot of work.
 
 
 ## Introducing: Isotope - Ruby Hybrid Template Engine for Client Side and Server Side
@@ -88,15 +92,29 @@ The biggest constraints to be considered are:
 
 Isotope is from greek - "Equal Place". An equal place of editing a template for both client and server (Thanks @yuvalraz for the name!).
 
-Using [**jbarnette**](http://github.com/jbarnette/)'s [**Johnson**](http://github.com/jbarnette/johnson/) gem, Ruby and JavaScript can interact together!
+Using [**jbarnette**](http://github.com/jbarnette/)'s AWESOME [**Johnson**](http://github.com/jbarnette/johnson/) gem, Ruby and JavaScript can interact together!
 
 That means, that ruby code can handle EJS templates and JSON objects. A **great and very inspiring article** is [Write your Rails view in… JavaScript?](http://tenderlovemaking.com/2008/05/06/write-your-rails-view-in-javascript/) by [Aaron Patterson](http://tenderlovemaking.com/).
 
-In this approach, only one template is written in EJS format.
+In this approach, only **one template is written and maintained in an EJS format**, for both client side and server side.
 
 ## Usage
 
-There are the methods of using this library:
+Isotope gives the ability to have the two approaches on the same template file, and easily switch between them:
+
+	# article.ejs
+	
+	<h2><%=item.title%></h2>
+
+	<div class="content">
+	<%=item.content%>
+	</div>
+
+	<ul class="tags">
+		<%item.tags.forEach(function (tag) {%>
+		<li><%=tag.name%></li>
+		<%});%>
+	</ul>
 
 ### On the Client Side
 
@@ -104,7 +122,7 @@ Outputting from the server side (controller or view)
 	
 	<%= Isotope.render_template("full/path/to/article.ejs", :id => "article-template") %>
 	
-*Notice: a full path should be sent as the first variable, so either use `File.join(File.dirname(__FILE__), '../relative/path/to/article.ejs') or with Rails.root.join('app/views/articles/article.ejs')`*
+*Notice: a full path should be sent as the first variable, so either use `File.join(File.dirname(__FILE__), '../relative/path/to/article.ejs')` or with `Rails.root.join('app/views/articles/article.ejs')`*
 
 The above code will output:
 
@@ -130,7 +148,7 @@ Using [Johnson](http://github.com/jbarnette/johnson/), the famous [micro-templat
 
 	<%= Isotope.render_partial("full/path/to/article.js", :locals => { :item => @article }) %>
 
-*Notice: a full path should be sent as the first variable, so either use `File.join(File.dirname(__FILE__), '../relative/path/to/article.ejs') or with Rails.root.join('app/views/articles/article.ejs')`*
+*Notice: a full path should be sent as the first variable, so either use `File.join(File.dirname(__FILE__), '../relative/path/to/article.ejs')` or with `Rails.root.join('app/views/articles/article.ejs')`*
 
 This code reads the source of the EJS file, uses Johnson and John Resig's technique and serves a **string** as an output.
 
@@ -220,8 +238,6 @@ Or, with a view:
 
 Actually the same usage, more or less.
 
-
----
 
 ---
 
