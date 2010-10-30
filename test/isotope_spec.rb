@@ -101,5 +101,3 @@ def dummy_articles
     }
   ]
 end
-
-# puts 

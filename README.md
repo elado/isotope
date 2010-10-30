@@ -2,7 +2,8 @@
 
 ## The problem:
 
-Ajax based site developers sometimes struggle with content rendering and role division between server and client.
+In Ajax-based sites, there's a constant dilemma: How to get objects rendered in templates? In server side (and output full HTML)? Client side (and mess with JSON objects)?
+What should be the role division between server and client?
 
 ## Common Approaches, Pros & Cons:
 
@@ -37,7 +38,7 @@ This partial can look like:
 
 * Server side only
 * Requires download of the whole HTML code, can cause performance issues
-* To change data or bind with a different object on client side JS, need to do some DOM traversal, by using a technique like assigning special classes/attributes to data containers (`<div class="content"></div>` and something like `container.querySelect('.content').textContent=article.content;`)
+* Cannot bind easily to a different object on client side. Must re-rendered in the server-side and be downloaded
 
 
 ### Approach #2: Client Side EJS Template with JSON Objects
@@ -62,7 +63,6 @@ Ask the server for a JSON article and evaluate the template with this object int
 
 	var results = document.getElementById("results"); // some container on the page
 	results.innerHTML = tmpl("article-template", article); // article is an object, probably a result of an AJAX JSON request
-	
 
 #### Pros
 
@@ -73,16 +73,55 @@ Ask the server for a JSON article and evaluate the template with this object int
 * SEO and accessibility - HTML code isn't in the source of the page but being rendered after load
 
 
+### Approach #3: Regular ERB Partial With Marked Spots for Data Place Holders
+
+This approach tries to combine server side and client side but requires a lot of work. It contains a regular ERB template and place holder markers like class names on elements.
+The template can be first evaluated on the server with a Ruby object and on the client side it can be evaluated with a different JS object (probably from a JSON request).
+
+Template file should look like:
+
+	<h2 class="data-title"><%=article.title%></h2>
+	<div class="content data-content">
+	<%=article.content%>
+	</div>
+	<ul class="tags data-tags">
+		<%article.tags.each { |tag|%>
+		<li><%=tag.name%></li>
+		<%}%>
+	</ul>
+
+And then, from a JS function, doing something like:
+
+	// article is an object probably from a JSON request
+	container.querySelector('.data-title').textContent=article.title;
+	container.querySelector('.data-content').textContent=article.content;
+	var tags=container.querySelector('.data-tags');
+	tags.innerHTML="";
+	article.tags.forEach(function (tag) {
+		tags.appendChild(document.createElement("li")).textContent=tag.name;
+	});
+
+#### Pros
+
+* One template for both client and server (not really, see Cons)
+* SEO and accessibility - HTML code is downloaded into the source
+
+#### Cons
+
+* On the client side - Must mimic the Ruby functionality with JS when it comes to loops, conditions etc. However, text values are pretty easy to embed. This code should probably written manually for everything that is not a simple textual content.
+* Must maintain data place holder markers
+
+
 ### So...
 
-In these two approaches, the developer needs to choose according to the task and the project requirements, or, worse, maintaining two templates, ERB and EJS.
+In these three approaches, the developer needs to choose according to the task and the project requirements, or worse, maintaining two templates, ERB and EJS.
 
 Each approach is written in a totally different way, and switching between the approaches means a lot of work.
 
 
 ## Introducing: Isotope - Ruby Hybrid Template Engine for Client Side and Server Side
 
-So why not combining the two approaches together?
+So why not combining all the **pros** of the approaches together?
 
 The biggest constraints to be considered are:
 
@@ -100,7 +139,7 @@ In this approach, only **one template is written and maintained in an EJS format
 
 ## Usage
 
-Isotope gives the ability to have the two approaches on the same template file, and easily switch between them:
+Isotope gives the ability to have a single template file, and easily switch between the approaches:
 
 	# article.ejs
 	
