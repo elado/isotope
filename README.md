@@ -141,7 +141,7 @@ In this approach, only **one template is written and maintained in an EJS format
 
 Isotope gives the ability to have a single template file, and easily switch between the approaches:
 
-	# article.ejs
+	# article.html.ejs
 	
 	<h2><%= item.title %></h2>
 
@@ -159,10 +159,8 @@ Isotope gives the ability to have a single template file, and easily switch betw
 
 Outputting from the server side (controller or view)
 	
-	<%= Isotope.render_template("full/path/to/article.ejs", :id => "article-template") %>
+	<%= isotope_render_template("articles/article", :id => "article-template") %>
 	
-*Notice: a full path should be sent as the first variable, so either use `File.join(File.dirname(__FILE__), '../relative/path/to/article.ejs')` or with `Rails.root.join('app/views/articles/article.ejs')`*
-
 The above code will output:
 
 	<script type="text/x-isotope" id="article-template">
@@ -185,9 +183,7 @@ which is easy to evaluate with any JS object using the [mentioned technique](htt
 
 Using [Johnson](http://github.com/jbarnette/johnson/), the famous [micro-templating technique](http://ejohn.org/blog/javascript-micro-templating/) and JSONed Ruby objects, this library provides the following functionality:
 
-	<%= Isotope.render_partial("full/path/to/article.js", :locals => { :item => @article }) %>
-
-*Notice: a full path should be sent as the first variable, so either use `File.join(File.dirname(__FILE__), '../relative/path/to/article.ejs')` or with `Rails.root.join('app/views/articles/article.ejs')`*
+	<%= isotope_render_partial("articles/article", :locals => { :item => @article }) %>
 
 This code reads the source of the EJS file, uses Johnson and John Resig's technique and serves a **string** as an output.
 
@@ -259,7 +255,7 @@ Add to config/environment.rb
 			]
 		} # Or an ActiveRecord fetch
 		
-		render :text => Isotope.render_partial(Rails.root.join('app/views/articles/article.ejs'), :locals => { :item => @article })
+		render :text => isotope_render_partial('articles/article', :locals => { :item => @article })
 	end
 
 Or, with a view:
@@ -281,13 +277,13 @@ Or, with a view:
 	
 	# views/articles/show.html.erb
 	
-	<%= Isotope.render_partial(Rails.root.join('app/views/articles/article.ejs'), :locals => { :item => @article }) %>
+	<%= isotope_render_partial('articles/article', :locals => { :item => @article }) %>
 	
 ##### Client Side Example:
 
 	# views/articles/show.html.erb
 	
-	<%= Isotope.render_template(Rails.root.join('app/views/articles/article.ejs'), :id => "article") %>
+	<%= isotope_render_template('articles/article', :id => "article") %>
 	
 
 #### Sinatra

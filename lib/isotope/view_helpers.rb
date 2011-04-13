@@ -22,10 +22,12 @@ module Isotope
     
     private
     def self.resolve_view_file_path(view_file)
+      ext = ".html.ejs" unless view_file =~ /\.[a-z]+$/i
+      
       if defined? Rails
-        Rails.root.join("app/views/#{view_file}.html.ejs")
+        Rails.root.join("app/views/#{view_file}#{ext}")
       else
-        "views/#{view_file}.html.ejs"
+        "views/#{view_file}#{ext}"
       end
     end
   end

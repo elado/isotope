@@ -11,7 +11,7 @@ end
 describe Isotope do
   before :all do
     @articles = dummy_articles
-    @template_file = File.join(File.dirname(__FILE__), "article.ejs")
+    @template_file = File.join(File.dirname(__FILE__), "article.html.ejs")
   end
   
   WHITESPACE_RX = /\s/
