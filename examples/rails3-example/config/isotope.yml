@@ -1,0 +1,2 @@
+include_scripts:
+  - /public/javascripts/isotope_functions.js

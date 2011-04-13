@@ -11,6 +11,7 @@ h3 { font-size:16px; font-weight:bold; margin-top:15px; }
 
 .article-list {}
 	.article-list .article { margin-bottom:25px; padding-bottom:25px; border-bottom:1px solid #51636F; }
+	.article-list .article .date { font-size:11px; margin-top:10px; font-style:italic; }
 	.article-list .article .content { margin:15px 0; }
 	.article-list .article .tags { font-size:11px; }
 		.article-list .article .tags > li { display:inline; padding-right:5px; }

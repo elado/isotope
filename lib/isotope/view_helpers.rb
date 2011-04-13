@@ -16,6 +16,10 @@ module Isotope
       Isotope.render_template(ViewHelpers::resolve_view_file_path(view_file), options)
     end
     
+    def isotope_included_scripts
+      Isotope.render_included_scripts
+    end
+    
     private
     def self.resolve_view_file_path(view_file)
       if defined? Rails

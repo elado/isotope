@@ -27,6 +27,7 @@ private
 		@articles = [
 		  {
         :title => "Article #1",
+        :date => Time.utc(2011, 4, 12),
         :content => "Article content #1",
         :tags => [
           { :name => "tag 1" },
@@ -37,6 +38,7 @@ private
       },
       {
         :title => "Article #2",
+        :date => Time.utc(2011, 4, 10),
         :content => "Article content #2",
         :tags => [
           { :name => "tag 5" },
@@ -47,6 +49,7 @@ private
       },
       {
         :title => "Article #3",
+        :date => Time.utc(2011, 3, 31),
         :content => "Article content #3",
         :tags => [
           { :name => "tag 9" },

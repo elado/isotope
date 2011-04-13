@@ -1,5 +1,7 @@
 <div class="article">
   <h3><%=item.title%></h3>
+  
+  <div class="date"><%= formatDate(item.date) %></div>
 
   <div class="content">
   <%=item.content%>
@@ -7,7 +9,7 @@
 
   <ul class="tags">
   	<%item.tags.forEach(function (tag) {%>
-    <li><a href="/tag/<%=encodeURIComponent(tag.name)%>"><%=tag.name%></a></li>
+    <li><a href="/tag/<%=encodeURIComponent(tag.name)%>"><%=tag.name.parenthesize()%></a></li>
   	<%});%>
   </ul>
 </div>
