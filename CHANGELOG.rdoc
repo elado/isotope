@@ -1,3 +1,11 @@
+== 1.2
+
+* Include external JS files for functionality in client/server templates, with config/isotope.yml
+
+== 1.1
+
+* New Rails API, as helper functions
+
 == 1.0.0 Initial release, 2010-10-28
 
 * Initial release
