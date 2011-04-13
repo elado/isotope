@@ -44,7 +44,7 @@
 				
 				s.push(fn(itemObject));
 			}
-			return s.join(options.delimeter || "");
+			return s.join(options.delimiter || "");
 		}
 		else {
 			return fn( data );

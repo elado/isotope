@@ -1,17 +1,15 @@
-require 'isotope'
-
 class ArticlesController < ApplicationController
   before_filter :find_article
 
-  def show_server_template_in_controller
-		render :text => Isotope.render_partial(Rails.root.join('app/views/articles/article.html.ejs'), :locals => { :item => @articles[0] })
+  def render_server_template_in_controller
+		render :text => isotope_render_partial('articles/article', :locals => { :item => @articles[0] })
   end
 
-  def show_server_template_in_view
+  def render_server_template_in_view
     
   end
 
-  def show_client
+  def render_client
     
   end
   
@@ -28,33 +26,33 @@ private
   def find_article
 		@articles = [
 		  {
-        :title => "Hello!",
-        :content => "World!",
+        :title => "Article #1",
+        :content => "Article content #1",
         :tags => [
-          {:name => "tag 1"},
-          {:name => "tag 2"},
-          {:name => "tag 3"},
-          {:name => "tag 4"}
+          { :name => "tag 1" },
+          { :name => "tag 2" },
+          { :name => "tag 3" },
+          { :name => "tag 4" }
         ]
       },
       {
-        :title => "Hello 2!",
-        :content => "World 2!",
+        :title => "Article #2",
+        :content => "Article content #2",
         :tags => [
-          {:name => "tag 5"},
-          {:name => "tag 6"},
-          {:name => "tag 7"},
-          {:name => "tag 8"}
+          { :name => "tag 5" },
+          { :name => "tag 6" },
+          { :name => "tag 7" },
+          { :name => "tag 8" }
         ]
       },
       {
-        :title => "Hello 3!",
-        :content => "World 3!",
+        :title => "Article #3",
+        :content => "Article content #3",
         :tags => [
-          {:name => "tag 9"},
-          {:name => "tag 10"},
-          {:name => "tag 11"},
-          {:name => "tag 12"}
+          { :name => "tag 9" },
+          { :name => "tag 10" },
+          { :name => "tag 11" },
+          { :name => "tag 12" }
         ]
       }
     ]

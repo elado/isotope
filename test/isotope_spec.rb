@@ -12,8 +12,10 @@ describe Isotope do
       
       s.should_not be_nil
       
-      s.strip.gsub(/\t| {2,}/, "").should eql('
-        <script type="text/x-isotope" id="hello"><h2><%=item.title%></h2>
+      # white spaces are not important to equalize
+      s.strip.gsub(/\s/, "").should eql('
+        <script type="text/x-isotope" id="hello"><div class="article">
+        <h2><%=item.title%></h2>
 
         <div class="content">
         <%=item.content%>
@@ -23,7 +25,8 @@ describe Isotope do
         	<%item.tags.forEach(function (tag) {%>
         	<li><%=tag.name%></li>
         	<%});%>
-        </ul></script>'.strip.gsub(/\t| {2,}/, "")
+        </ul>
+        </div></script>'.strip.gsub(/\s/, "")
       )
   end
 
@@ -31,46 +34,52 @@ describe Isotope do
     evaluated_content = Isotope.render_partial(@template_file, :locals => { :item => @articles[0] })
     
     expected_content = '
-      <h2>Hello!</h2>
-      <div class="content">
-      World!
+      <div class="article">
+        <h2>Hello!</h2>
+        <div class="content">
+        World!
+        </div>
+        <ul class="tags">
+          <li>tag 1</li>
+          <li>tag 2</li>
+          <li>tag 3</li>
+          <li>tag 4</li>
+        </ul>
       </div>
-      <ul class="tags">
-        <li>tag 1</li>
-        <li>tag 2</li>
-        <li>tag 3</li>
-        <li>tag 4</li>
-      </ul>
     '
     # white spaces are not important to equalize
     evaluated_content.gsub(/\s/, "").should eql(expected_content.gsub(/\s/, ""))
   end
   
   it "should render an array of articles" do
-    evaluated_content = Isotope.render_partial(@template_file, :collection => @articles, :delimeter => "<hr/>")
+    evaluated_content = Isotope.render_partial(@template_file, :collection => @articles, :delimiter => "<hr/>")
 
     expected_content = '
-      <h2>Hello!</h2>
-      <div class="content">
-      World!
+      <div class="article">
+        <h2>Hello!</h2>
+        <div class="content">
+        World!
+        </div>
+        <ul class="tags">
+          <li>tag 1</li>
+          <li>tag 2</li>
+          <li>tag 3</li>
+          <li>tag 4</li>
+        </ul>
       </div>
-      <ul class="tags">
-        <li>tag 1</li>
-        <li>tag 2</li>
-        <li>tag 3</li>
-        <li>tag 4</li>
-      </ul>
       <hr/>
-      <h2>Hello 2!</h2>
-      <div class="content">
-      World 2!
+      <div class="article">
+        <h2>Hello 2!</h2>
+        <div class="content">
+        World 2!
+        </div>
+        <ul class="tags">
+          <li>tag 5</li>
+          <li>tag 6</li>
+          <li>tag 7</li>
+          <li>tag 8</li>
+        </ul>
       </div>
-      <ul class="tags">
-        <li>tag 5</li>
-        <li>tag 6</li>
-        <li>tag 7</li>
-        <li>tag 8</li>
-      </ul>
     '
 
     evaluated_content.gsub(/\s/, "").should eql(expected_content.gsub(/\s/, ""))

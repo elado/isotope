@@ -2,7 +2,7 @@
 
 ## The problem:
 
-In Ajax-based sites, there's a constant dilemma: How to get objects rendered in templates? In server side (and output full HTML)? Client side (and mess with JSON objects)?
+In Ajax-based sites, there's a constant dilemma: How to get objects rendered in templates? In server side (and output full HTML)? Client side (and mess with JSON objects and HTML strings/DOM generation)?
 What should be the role division between server and client?
 
 ## Common Approaches, Pros & Cons:
@@ -18,15 +18,15 @@ Evaluate a simple ERB partial with a local object, and server it as a **string**
 in a view, or from a controller and request it by Ajax.
 
 This partial can look like:
-	
-	<h2><%=article.title%></h2>
+
+	<h2><%= article.title %></h2>
 	<div class="content">
-	<%=article.content%>
+	<%= article.content %>
 	</div>
 	<ul class="tags">
-		<%article.tags.each { |tag|%>
-		<li><%=tag.name%></li>
-		<%}%>
+		<% article.tags.each { |tag| %>
+		<li><%= tag.name %></li>
+		<% } %>
 	</ul>
 		
 #### Pros
@@ -46,20 +46,20 @@ This partial can look like:
 Having an EJS template in the HTML code, with techniques such as John Resig's [JavaScript Micro-Templating](http://ejohn.org/blog/javascript-micro-templating/)
 
 	<script type="text/html" id="article-template">
-	<h2><%=item.title%></h2>
+	<h2><%= item.title %></h2>
 
 	<div class="content">
-	<%=item.content%>
+	<%= item.content %>
 	</div>
 
 	<ul class="tags">
-		<%item.tags.forEach(function (tag) {%>
-		<li><%=tag.name%></li>
-		<%});%>
+		<% item.tags.forEach(function (tag) { %>
+		<li><%= tag.name %></li>
+		<% }); %>
 	</ul>
 	</script>
 
-Ask the server for a JSON article and evaluate the template with this object into a string, and place it inside a container, using a techniques as mentioned:
+Query the server for a JSON article and evaluate the template with this object into a string, and place it inside a container, using a technique as mentioned:
 
 	var results = document.getElementById("results"); // some container on the page
 	results.innerHTML = tmpl("article-template", article); // article is an object, probably a result of an AJAX JSON request
@@ -80,14 +80,14 @@ The template can be first evaluated on the server with a Ruby object and on the 
 
 Template file should look like:
 
-	<h2 class="data-title"><%=article.title%></h2>
+	<h2 class="data-title"><%= article.title %></h2>
 	<div class="content data-content">
-	<%=article.content%>
+	<%= article.content %>
 	</div>
 	<ul class="tags data-tags">
-		<%article.tags.each { |tag|%>
-		<li><%=tag.name%></li>
-		<%}%>
+		<% article.tags.each { |tag| %>
+		<li><%= tag.name %></li>
+		<% } %>
 	</ul>
 
 And then, from a JS function, doing something like:
@@ -114,7 +114,7 @@ And then, from a JS function, doing something like:
 
 ### So...
 
-In these three approaches, the developer needs to choose according to the task and the project requirements, or worse, maintaining two templates, ERB and EJS.
+In these three approaches, the developer needs to choose according to the task and the project requirements, or worse, maintain two templates, ERB and EJS.
 
 Each approach is written in a totally different way, and switching between the approaches means a lot of work.
 
@@ -143,16 +143,16 @@ Isotope gives the ability to have a single template file, and easily switch betw
 
 	# article.ejs
 	
-	<h2><%=item.title%></h2>
+	<h2><%= item.title %></h2>
 
 	<div class="content">
-	<%=item.content%>
+	<%= item.content %>
 	</div>
 
 	<ul class="tags">
-		<%item.tags.forEach(function (tag) {%>
-		<li><%=tag.name%></li>
-		<%});%>
+		<% item.tags.forEach(function (tag) { %>
+		<li><%= tag.name %></li>
+		<% }); %>
 	</ul>
 
 ### On the Client Side
@@ -166,16 +166,16 @@ Outputting from the server side (controller or view)
 The above code will output:
 
 	<script type="text/x-isotope" id="article-template">
-	<h2><%=item.title%></h2>
+	<h2><%= item.title %></h2>
 
 	<div class="content">
-	<%=item.content%>
+	<%= item.content %>
 	</div>
 
 	<ul class="tags">
-		<%item.tags.forEach(function (tag) {%>
-		<li><%=tag.name%></li>
-		<%});%>
+		<% item.tags.forEach(function (tag) { %>
+		<li><%= tag.name %></li>
+		<% }); %>
 	</ul>
 	</script>
 
@@ -194,9 +194,6 @@ This code reads the source of the EJS file, uses Johnson and John Resig's techni
 
 ### Installation:
 
-	gem install isotope
-
-Or
 	# Rails 3.x
 	ruby script/rails plugin install git@github.com:elado/isotope.git
 	
@@ -225,6 +222,10 @@ Add to config/environment.rb
 	config.gem 'isotope'
 
 and run `rake gems:install`
+
+Add to config/environment.rb
+
+  require 'isotope'
 
 ##### Server Side Example:
 
@@ -277,6 +278,16 @@ Or, with a view:
 
 Actually the same usage, more or less.
 
+
+### Run Tests
+
+  rspec test/isotope_spec.rb
+
+Launch sample Rails app
+  
+  cd examples/rails3-example && rails s
+
+and go to http://localhost:3000
 
 ---
 

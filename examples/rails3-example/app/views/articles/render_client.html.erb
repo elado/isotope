@@ -1,0 +1,29 @@
+<script>
+window.addEvent("domready",function () {
+	new Request.JSON({
+		url:"/articles/article_object",
+		onSuccess:function (data) {
+			$("single").set("html",Isotope($("article-template").get("text"),{ item:data }));
+		},
+	}).get();
+
+	new Request.JSON({
+		url:"/articles/article_object_list",
+		onSuccess:function (data) {
+			$("list").set("html",Isotope($("article-template").get("text"), data));
+		},
+	}).get();
+});
+</script>
+
+<%= isotope_render_template('articles/article', :id => "article-template").html_safe %>
+
+<h1>Articles</h1>
+
+<h2>Single Example</h2>
+
+<div id="single" class="article-list"></div>
+
+<h2>List Example</h2>
+
+<div id="list" class="article-list"></div>

@@ -1,11 +1,13 @@
-<h2><%=item.title%></h2>
+<div class="article">
+  <h3><%=item.title%></h3>
 
-<div class="content">
-<%=item.content%>
+  <div class="content">
+  <%=item.content%>
+  </div>
+
+  <ul class="tags">
+  	<%item.tags.forEach(function (tag) {%>
+    <li><a href="/tag/<%=encodeURIComponent(tag.name)%>"><%=tag.name%></a></li>
+  	<%});%>
+  </ul>
 </div>
-
-<ul class="tags">
-	<%item.tags.forEach(function (tag) {%>
-	<li><%=tag.name%></li>
-	<%});%>
-</ul>

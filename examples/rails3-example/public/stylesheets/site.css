@@ -1,0 +1,16 @@
+html {
+	background-color:#343F47; color:#D8E0E6;
+	padding:30px;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; font-size:14px; 
+}
+a { color:#C6E2AA; }
+  a:hover { color:#D0E6B9; }
+h1 { color:#C3F1F7; font-size:24px; font-weight:bold; margin-bottom:1.5em; }
+h2 { font-size:18px; font-weight:bold; margin-bottom:15px; }
+h3 { font-size:16px; font-weight:bold; margin-top:15px; }
+
+.article-list {}
+	.article-list .article { margin-bottom:25px; padding-bottom:25px; border-bottom:1px solid #51636F; }
+	.article-list .article .content { margin:15px 0; }
+	.article-list .article .tags { font-size:11px; }
+		.article-list .article .tags > li { display:inline; padding-right:5px; }

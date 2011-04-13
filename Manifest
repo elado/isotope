@@ -2,6 +2,7 @@ CHANGELOG.rdoc
 Gemfile
 Gemfile.lock
 LICENSE
+Manifest
 README.md
 Rakefile
 examples/rails3-example/Gemfile
@@ -54,10 +55,11 @@ examples/rails3-example/test/performance/browsing_test.rb
 examples/rails3-example/test/test_helper.rb
 examples/rails3-example/test/unit/helpers/article_helper_test.rb
 examples/rails3-example/test/unit/helpers/articles_helper_test.rb
+examples/rails3-example/tmp/pids/server.pid
 examples/sinatra-example/server.rb
+isotope.gemspec
 lib/isotope.js
 lib/isotope.rb
 lib/version.rb
 test/article.ejs
 test/isotope_spec.rb
-Manifest
