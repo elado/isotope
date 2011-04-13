@@ -192,12 +192,12 @@ This code reads the source of the EJS file, uses Johnson and John Resig's techni
 External JS files can be included in order to have special functionality in the EJS templates, on both client and server.
 To include files, create a config/isotope.yml file and fill this array, relatively to the app root:
 
-  include_scripts:
-    - /public/javascripts/isotope_functions.js
+	include_scripts:
+		- /public/javascripts/isotope_functions.js
 
 And in order to have it available on client side, put this line before the </body> close:
 
-  <%= isotope_included_scripts.html_safe %>
+	<%= isotope_included_scripts.html_safe %>
 
 Scripts will be automatically included in server side.
 
@@ -295,11 +295,11 @@ Actually the same usage, more or less.
 
 Install rspec (gem install rspec)
 
-  rspec test/isotope_spec.rb
+	rspec test/isotope_spec.rb
 
 Launch sample Rails app
   
-  cd examples/rails3-example && rails s
+	cd examples/rails3-example && rails s
 
 and go to http://localhost:3000
 
