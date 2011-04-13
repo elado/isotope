@@ -201,8 +201,7 @@ And in order to have it available on client side, put this line before the </bod
 
 Scripts will be automatically included in server side.
 
-
-* Scripts and templates are never cached on development environment
+*Scripts and templates are never cached on development environment.*
 
 ### Installation:
 
