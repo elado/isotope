@@ -295,11 +295,11 @@ Actually the same usage, more or less.
 
 Install rspec (gem install rspec)
 
-  rspec test/isotope_spec.rb
+	rspec test/isotope_spec.rb
 
 Launch sample Rails app
   
-  cd examples/rails3-example && rails s
+	cd examples/rails3-example && rails s
 
 and go to http://localhost:3000
 
