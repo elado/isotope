@@ -1,5 +1,6 @@
-source :rubygemss
+source :rubygems
 source :gemcutter
 source "http://gems.github.com"
 
-gem "johnson"
+gem 'json'
+gem 'execjs'

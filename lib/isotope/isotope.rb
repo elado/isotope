@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'johnson'
+require 'execjs'
 require 'json'
 require 'yaml'
 require 'erb'
@@ -38,15 +38,11 @@ module Isotope
     isotope_file_path = File.join(File.dirname(__FILE__), "isotope.js")
     
     view_file_content = template_file_content(view_file)
-    
-    script = "
-      #{included_scripts_source}
-      Johnson.runtime.load('#{isotope_file_path}');
-      Isotope(#{view_file_content.to_json}, #{options[:locals].to_json});
-    "
 
-    output = Johnson.evaluate(script)
-    
+    context = ExecJS.compile(included_scripts_source + " " + IO.read(isotope_file_path))
+    script = "Isotope(#{view_file_content.to_json}, #{options[:locals].to_json})"
+    output = context.eval(script)
+
     output
   end
   
