@@ -2,7 +2,12 @@ source 'http://rubygems.org'
 
 gem 'rails', '>=3.0.0'
 
+# Pick your JS runtime (see https://github.com/sstephenson/execjs)
+gem 'therubyracer'
+#gem 'johnson'
+
 # gem 'isotope'
 gem 'json'
-gem 'johnson'
+gem 'execjs'
+
 gem 'sqlite3-ruby', :require => 'sqlite3'
