@@ -38,8 +38,11 @@ module Isotope
     isotope_file_path = File.join(File.dirname(__FILE__), "isotope.js")
     
     view_file_content = template_file_content(view_file)
+    
+    initial_script = included_scripts_source || ""
+    initial_script += IO.read(isotope_file_path)
 
-    context = ExecJS.compile(included_scripts_source + " " + IO.read(isotope_file_path))
+    context = ExecJS.compile(initial_script)
     script = "Isotope(#{view_file_content.to_json}, #{options[:locals].to_json})"
     output = context.eval(script)
 
